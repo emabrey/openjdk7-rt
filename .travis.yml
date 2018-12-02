@@ -1,0 +1,14 @@
+# http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+sudo: false
+
+# http://docs.travis-ci.com/user/languages/minimal-and-generic/
+language: minimal
+
+script:
+    #Verify the actual file contents are present
+    - bash [ -f ./rt.jar ] && [ -f ./src.zip ] 
+    #Verify the license/legal files required are present
+    - bash [ -f ./LICENSE ] && [ -f ./DISCLAIMER ] && [ -f ./THIRD_PARTY_README ]
+    
+notifications:
+  email: false
