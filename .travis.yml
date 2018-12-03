@@ -6,9 +6,16 @@ language: minimal
 
 script:
     #Verify the actual file contents are present
-    - bash [ -f ./rt.jar ] && [ -f ./src.zip ] 
-    #Verify the license/legal files required are present
-    - bash [ -f ./LICENSE ] && [ -f ./DISCLAIMER ] && [ -f ./THIRD_PARTY_README ]
+    - sh -c 'test -f ./rt.jar && test -f ./src.zip'
+
+    #Verify that the rt.jar is a valid JAR and it isn't malformed. Also verifies the signature, if it exists
+    - sh -c 'echo "$(jarsigner -verify ./rt.jar)"'
     
+    #Verify the license/legal files required are present
+    - sh -c 'test -f ./LICENSE && test -f ./DISCLAIMER && test -f ./THIRD_PARTY_README'
+    
+    #Verify that we can download rt.jar for this commit remotely using the GitHub URI
+    - sh -c 'curl --output /dev/null --silent --show-error --fail --ssl --head "https://github.com/welovecoding/openjdk7-rt/raw/$(git rev-parse HEAD)/rt.jar"'
+
 notifications:
   email: false
