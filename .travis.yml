@@ -9,7 +9,7 @@ script:
     - sh -c 'echo "Verifying rt.jar and src.zip are present..."; test -f ./rt.jar && test -f ./src.zip'
 
     #Verify that the rt.jar is a valid JAR and it isn't malformed. Also verifies the signature, if it exists
-    - sh -c 'echo "Verifying rt.jar using jarsigner tool...";jarsigner -verify ./rt.jar
+    - sh -c 'echo "Verifying rt.jar using jarsigner tool...";jarsigner -verify ./rt.jar'
     
     #Verify the license/legal files required are present
     - sh -c 'echo "Verifying license and legal files are present..."; test -f ./LICENSE && test -f ./DISCLAIMER && test -f ./THIRD_PARTY_README'
